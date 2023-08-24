@@ -21,6 +21,7 @@ const Account = db.define("Account", {
   },
   balance: {
     type: Orm.DECIMAL(12, 2),
+    defaultValue: 0,
   },
   password: {
     type: Orm.STRING,
@@ -44,12 +45,11 @@ const Account = db.define("Account", {
 Account.prototype.generateToken = function () {
   const today = new Date();
   const expirationDate = new Date(today);
-  expirationDate.setDate(today.getDate() + 60); // token valid for 60 days
+  expirationDate.setDate(today.getDate() + 60); // token valid for 60 days (should be less, but for testing purposes...)
 
   return jwt.sign(
     {
-      email: this.email,
-      id: this._id,
+      id: this.dataValues.id,
       exp: parseInt(expirationDate.getTime() / 1000, 10),
     },
     config.secret
