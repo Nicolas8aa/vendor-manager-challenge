@@ -23,7 +23,7 @@ const verifyToken = async (req, res, next) => {
     if (!user) {
       return res.status(404).send({ message: "User Not found." });
     }
-    req.user = user;
+    req.user = user.dataValues;
     next();
   } catch (error) {
     return res.status(401).send({
