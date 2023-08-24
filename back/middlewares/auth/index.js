@@ -39,7 +39,7 @@ const isAdmin = (req, res, next) => {
   }
 
   res.status(403).send({
-    message: "Require Admin Role!",
+    message: "Only admins can do this action",
   });
   return;
 };

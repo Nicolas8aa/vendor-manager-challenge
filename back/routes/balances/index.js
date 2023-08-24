@@ -68,7 +68,7 @@ router.post("/deposit/:accountId", [isBuyer], async (req, res) => {
 
     const maxAllowedDeposit = totalOwedAmount * 0.1;
 
-    if (depositAmount > maxAllowedDeposit) {
+    if (totalOwedAmount > 0 && depositAmount > maxAllowedDeposit) {
       throw new Error(
         "You can't deposit more than 10% of your total submissions owed amount"
       );
