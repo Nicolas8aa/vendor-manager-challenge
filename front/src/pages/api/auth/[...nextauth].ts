@@ -31,9 +31,8 @@ export const authOptions: NextAuthOptions = {
           }),
         });
 
-        const user = await response.json();
-
-        if (user) {
+        if (response.ok) {
+          const user = await response.json();
           return user;
         } else {
           return null;
