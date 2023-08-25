@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "seed": "node ./public/scripts/db-seed",
-    "test": "jest --watchAll --verbose"
+    "test": "jest --watchAll --verbose --detectOpenHandles "
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -15,5 +15,6 @@ module.exports = {
     "@lib/(.*)": "<rootDir>/lib/$1",
     "@config/(.*)": "<rootDir>/config/$1",
     "@middlewares/(.*)": "<rootDir>/middlewares/$1",
+    "@root/(.*)": "<rootDir>/$1",
   },
 };
