@@ -31,7 +31,6 @@ export default function Login() {
       // redirect to callbackUrl if present or to the default page
       const callbackUrl = router.query.callbackUrl as string;
       router.replace(callbackUrl || "/");
-      // console.log("result", result);
       return;
     }
 

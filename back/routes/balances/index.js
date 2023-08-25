@@ -77,9 +77,6 @@ router.post("/deposit/:accountId", [isBuyer], async (req, res) => {
       transaction,
     });
 
-    console.log("owed amount:", totalOwedAmount);
-    console.log("depositAmount:", depositAmount);
-
     const maxAllowedDeposit = totalOwedAmount * 0.1;
 
     if (totalOwedAmount > 0 && depositAmount > maxAllowedDeposit) {

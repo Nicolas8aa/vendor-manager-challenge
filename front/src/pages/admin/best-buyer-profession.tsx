@@ -32,7 +32,6 @@ export const getServerSideProps: GetServerSideProps<{
     context
   );
 
-  console.log(res);
   const data = await res.json();
 
   return {
