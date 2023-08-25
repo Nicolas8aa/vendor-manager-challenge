@@ -19,8 +19,6 @@ export default function Register() {
     email: string;
     password: string;
   }) => {
-    console.log("register");
-
     setError("Email o contraseña incorrectos");
   };
 

@@ -10,7 +10,7 @@ export interface AppUser {
   lastName: string;
   profession: string;
   email: string;
-  type: string;
+  type: "buyer" | "supplier";
   admin: boolean;
   accessToken: string;
 }

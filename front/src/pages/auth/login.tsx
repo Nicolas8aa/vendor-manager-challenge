@@ -73,7 +73,6 @@ export default function Login() {
                   email: email.value,
                   password: password.value,
                 });
-                console.log(response);
               } catch (error) {
                 console.log(error);
               }

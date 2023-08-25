@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const NavItem = ({
   href,
@@ -17,24 +17,33 @@ const NavItem = ({
 };
 
 const Navbar = () => {
+  const { data: session } = useSession();
+
   return (
-    <nav className="bg-indigo-600 p-4">
+    <nav className="bg-indigo-600 p-4 sticky top-0 z-10">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="text-white font-bold text-lg">
-          App
+          Vendor manager
         </Link>
         <ul className="flex space-x-4 text-white">
           <li>
-            <Link href="/">Aggreements</Link>
+            <Link href="/agreements">Aggreements</Link>
           </li>
           <li>
-            <Link href="/about">Balance</Link>
+            <Link href="/submissions">Submissions</Link>
           </li>
           <li>
-            <Link href="/contact">Admin</Link>
+            <Link href="/balance">Balance</Link>
           </li>
+
+          {session?.user.admin && (
+            <li>
+              <Link href="/admin">Admin</Link>
+            </li>
+          )}
+
           <li>
-            <Link href="#" onClick={() => signOut()}>
+            <Link href="#" className="text-black" onClick={() => signOut()}>
               Log out
             </Link>
           </li>
@@ -48,9 +57,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar />
-      <main className="container mx-auto max-w-xl pt-8 min-h-screen">
-        {children}
-      </main>
+      <main className="container mx-auto pt-8 min-h-screen">{children}</main>
     </>
   );
 };
