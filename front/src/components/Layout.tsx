@@ -6,11 +6,6 @@ import {
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
-  Button,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Navbar,
 } from "@nextui-org/react";
 import { useRouter } from "next/router";
 

@@ -48,7 +48,7 @@ router.get(
       if (!submissions.length) {
         return res.send({
           profession: null,
-          earnings: 0,
+          earnings: null,
         });
       }
 

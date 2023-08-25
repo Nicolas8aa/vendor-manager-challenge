@@ -47,7 +47,7 @@ const Balance = ({
   return (
     // create a page to display the user's balance. Fetch data from the /balances API. and a button to deposit money
     <div className="max-w-sm mx-auto text-center">
-      <p className="text-4xl mb-5">Balance: {balance}€</p>
+      <p className="text-4xl mb-5">Balance: {balance.toFixed(2)}€</p>
 
       <form
         onSubmit={(e) => {
