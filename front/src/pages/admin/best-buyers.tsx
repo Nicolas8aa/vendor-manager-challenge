@@ -138,7 +138,13 @@ const BestBuyers = () => {
         <div className="flex flex-col gap-5">
           <div className="inline-flex gap-4">
             {response.results.map((result) => {
-              return <BuyerCard key={result.id} {...result.Agreement.Buyer} />;
+              return (
+                <BuyerCard
+                  key={result.id}
+                  buyer={result.Agreement.Buyer}
+                  submission={result as any}
+                />
+              );
             })}
           </div>
           <Pagination
