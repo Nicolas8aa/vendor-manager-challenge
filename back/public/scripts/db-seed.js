@@ -2,9 +2,7 @@ require("module-alias/register");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 
-const { Agreement } = require("../../models/aggreement");
-const { Submission } = require("../../models/submissions");
-const { Account } = require("../../models/accounts");
+const { Agreement, Submission, Account } = require("@models");
 
 async function seed() {
   // create tables

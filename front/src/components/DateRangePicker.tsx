@@ -5,12 +5,12 @@ import { useState } from "react";
 import DatePicker from "react-date-picker";
 import { Button } from "./Form";
 
-type Props = {
+type PickerProps = {
   onSubmit: (start: Date, end: Date) => void;
   onClear: () => void;
 };
 
-const DateRangePicker = ({ onSubmit, onClear }: Props) => {
+const DateRangePicker = ({ onSubmit, onClear }: PickerProps) => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
 
