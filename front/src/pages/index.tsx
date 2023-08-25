@@ -1,22 +1,29 @@
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { Button, Input } from "@/components/Form";
-import { Title } from "@/components/Text";
-import Link from "next/link";
+import { PageTitle, Title } from "@/components/Text";
 
 export default function Home() {
   // create a home page to introduce the app
 
   const { data: session } = useSession();
 
+  const user = session?.user;
+
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <Title>Home</Title>
-        {session ? <h1>Logged in</h1> : <h1>Not logged in</h1>}
-      </div>
+      <PageTitle>Home</PageTitle>
+      {user && (
+        <>
+          <h1>
+            Welcome {user.firstName} {user.lastName}!{" "}
+          </h1>
+          <p>
+            You are logged in as {user.email} and have the role of {user.type}{" "}
+          </p>
+
+          {user.admin && <h1 className="font-bold text-indigo-600">Admin</h1>}
+        </>
+      )}
     </>
   );
 }
