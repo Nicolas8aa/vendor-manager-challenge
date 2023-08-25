@@ -16,28 +16,37 @@ router.get("/balance", async (req, res) => {
   res.send({ balance: req.user.balance });
 });
 
+class ExtendedError extends Error {
+  constructor(message, status) {
+    super(message);
+    this.status = status;
+  }
+}
+
 router.post("/deposit/:accountId", [isBuyer], async (req, res) => {
   const { accountId } = req.params;
-  const depositAmount = req.body.amount;
-
-  const buyer = req.user;
-
-  if (buyer.id != accountId) {
-    return res.status(403).send({
-      message: "You can't deposit money into another account",
-    });
-  }
-
-  // validate amount
-  if (depositAmount <= 0) {
-    return res.status(400).send({
-      message: "Amount must be greater than 0",
-    });
-  }
+  let depositAmount = req.body.amount;
 
   let transaction;
 
   try {
+    if (req.user.id != accountId) {
+      throw new ExtendedError(
+        "You can't deposit money into another account",
+        403
+      );
+    }
+    // validate deposit amount is not negative or zero and is a number
+
+    depositAmount = parseFloat(depositAmount);
+
+    if (!depositAmount) {
+      throw new ExtendedError("Deposit amount is required", 400);
+    }
+    if (depositAmount <= 0 || isNaN(depositAmount)) {
+      throw new ExtendedError("Deposit amount must be a positive number", 400);
+    }
+
     transaction = await db.transaction();
     // lock the buyer account
     const buyer = await Account.findOne({
@@ -49,7 +58,7 @@ router.post("/deposit/:accountId", [isBuyer], async (req, res) => {
     });
 
     if (!buyer) {
-      throw new Error("Buyer not found");
+      throw new ExtendedError("Buyer not found", 404);
     }
 
     const totalOwedAmount = await Submission.sum("price", {
@@ -68,13 +77,15 @@ router.post("/deposit/:accountId", [isBuyer], async (req, res) => {
       transaction,
     });
 
-    console.log(totalOwedAmount);
+    console.log("owed amount:", totalOwedAmount);
+    console.log("depositAmount:", depositAmount);
 
     const maxAllowedDeposit = totalOwedAmount * 0.1;
 
     if (totalOwedAmount > 0 && depositAmount > maxAllowedDeposit) {
-      throw new Error(
-        "You can't deposit more than 10% of your total submissions owed amount"
+      throw new ExtendedError(
+        "You can't deposit more than 10% of your total submissions owed amount",
+        400
       );
     }
 
@@ -92,7 +103,7 @@ router.post("/deposit/:accountId", [isBuyer], async (req, res) => {
       await transaction.rollback();
     }
 
-    return res.status(500).send({
+    return res.status(error.status || 500).send({
       message: error.message || "Error depositing money",
     });
   }

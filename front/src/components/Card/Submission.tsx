@@ -10,7 +10,6 @@ import {
 } from "@nextui-org/react";
 import { Submission } from "@/pages/submissions";
 import { Button } from "../Form";
-import { fetchClient } from "@/services/auth";
 
 export default function SubmissionCard(
   submission: Submission & { handlePay?: (id: number) => void }
