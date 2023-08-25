@@ -14,6 +14,9 @@ export async function middleware(req: NextRequest) {
     const url = new URL(`/auth/login`, req.url);
     return NextResponse.redirect(url);
   }
+  if (pathname.includes("/admin") && !token.admin) {
+    return NextResponse.redirect(new URL("/", req.url));
+  }
 
   return NextResponse.next();
 }

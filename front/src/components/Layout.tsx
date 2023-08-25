@@ -1,31 +1,51 @@
 import Link from "next/link";
 import React from "react";
 import { signOut, useSession } from "next-auth/react";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Navbar,
+} from "@nextui-org/react";
+import { useRouter } from "next/router";
 
-const NavItem = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => {
+const AdminDropdown = () => {
+  const router = useRouter();
+
   return (
-    <Link href={href} className="text-white font-bold text-lg">
-      {children}
-    </Link>
+    <Dropdown>
+      <DropdownTrigger>
+        <p className="cursor-pointer">Admin</p>
+        {/* <Button variant="flat">Admin</Button> */}
+      </DropdownTrigger>
+      <DropdownMenu
+        aria-label="Static Actions"
+        onAction={(key) => router.replace(`/admin/${key}`)}
+      >
+        <DropdownItem key="best-buyer-profession">
+          Best buyer profession
+        </DropdownItem>
+        <DropdownItem key="best-buyers">Best buyers</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 };
 
-const Navbar = () => {
+const AppNavbar = () => {
   const { data: session } = useSession();
 
   return (
     <nav className="bg-indigo-600 p-4 sticky top-0 z-10">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link href="/" className="text-white font-bold text-lg">
+      <div className="container mx-auto text-white flex justify-between items-center">
+        <Link href="/" className=" font-bold text-lg">
           Vendor manager
         </Link>
-        <ul className="flex space-x-4 text-white">
+        <ul className="flex space-x-8  items-center">
           <li>
             <Link href="/agreements">Aggreements</Link>
           </li>
@@ -36,18 +56,11 @@ const Navbar = () => {
             <Link href="/balance">Balance</Link>
           </li>
 
-          {session?.user.admin && (
-            <li>
-              <Link href="/admin">Admin</Link>
-            </li>
-          )}
-
-          <li>
-            <Link href="#" className="text-black" onClick={() => signOut()}>
-              Log out
-            </Link>
-          </li>
+          {session?.user.admin && <AdminDropdown />}
         </ul>
+        <Link href="#" onClick={() => signOut()}>
+          Log out
+        </Link>
       </div>
     </nav>
   );
@@ -56,7 +69,7 @@ const Navbar = () => {
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <Navbar />
+      <AppNavbar />
       <main className="container mx-auto pt-8 min-h-screen">{children}</main>
     </>
   );
