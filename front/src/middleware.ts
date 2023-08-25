@@ -6,7 +6,9 @@ export async function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;
   const token = await getToken({ req });
 
-  // all path are allowed matched so i need to
+  if (pathname == "/auth/login") {
+    return NextResponse.next();
+  }
 
   if (!token) {
     const url = new URL(`/auth/login`, req.url);
@@ -17,5 +19,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/((?!api|_next/static|_next/image|auth).*)"],
+  matcher: ["/((?!api|_next/static|_next/image).*)"],
 };
