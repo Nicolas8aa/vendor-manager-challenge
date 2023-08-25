@@ -2,6 +2,29 @@
 
 In this tutorial, we'll guide you through building a Node.js/Express.js app that serves a REST API. The app will handle accounts, agreements, and submissions. We will use SQLite as the database and Sequelize as the ORM to interact with it. Additionally, we'll include instructions for setting up the frontend using Next.js and demonstrate calls to the backend endpoints.
 
+## Authentication
+
+To authenticate as admin **(buyer type)** use the following credentials:
+
+```text
+email: AliceJohnson@example.com
+password: example
+```
+
+To authenticate as user **(buyer type)** use the following credentials:
+
+```text
+email: BobSmith@example.com
+password: example
+```
+
+To authenticate as user **(supplier type)** use the following credentials:
+
+```text
+email: JohnDoe@example.com
+password: example
+```
+
 ## Step 1: Project Setup
 
 1. Navigate to the root directory.
@@ -31,11 +54,13 @@ find mode informatio in `/back/models`
 ```
 
 - Account:
+
   - An account can be either a `buyer` or a `supplier`.
   - Buyers create agreements with suppliers, and suppliers do submissions for buyers.
   - Each account has a `balance` property.
 
 - Agreement:
+
   - An agreement is a contract between a buyer and a supplier.
   - Agreements can have three statuses: `new`, `in_progress`, or `terminated`.
   - Agreements are considered active only when they are in the `in_progress` status.

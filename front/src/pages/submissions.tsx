@@ -66,6 +66,9 @@ const Submissions = ({
             />
           );
         })}
+        {submissions.length === 0 && (
+          <div className="text-center ">No unpaid submissions</div>
+        )}
       </div>
       {/* <h1 className="text-2xl font-bold my-3">All submissions</h1> */}
     </>
