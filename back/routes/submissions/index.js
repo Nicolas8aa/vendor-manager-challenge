@@ -103,6 +103,9 @@ router.post("/:submission_id/pay", [isBuyer], async (req, res) => {
     submission.paymentDate = new Date();
     await submission.save({ transaction });
 
+    agreement.status = "terminated";
+    await agreement.save({ transaction });
+
     await transaction.commit();
     res.send("Payment successful");
   } catch (error) {
