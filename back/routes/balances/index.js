@@ -12,6 +12,10 @@ const { Op } = require("sequelize");
 
 router.use(verifyToken);
 
+router.get("/balance", async (req, res) => {
+  res.send({ balance: req.user.balance });
+});
+
 router.post("/deposit/:accountId", [isBuyer], async (req, res) => {
   const { accountId } = req.params;
   const depositAmount = req.body.amount;

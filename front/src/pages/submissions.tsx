@@ -50,21 +50,25 @@ const Submissions = ({
       refreshData();
     } else {
       const error = await res.json();
-      alert("Error paying submission: " + error.message);
+      alert("Error paying submission: " + error?.message || "Unknown error");
     }
   };
   return (
-    <div className="inline-flex gap-4 z-0">
-      {submissions.map((submission) => {
-        return (
-          <SubmissionCard
-            key={submission.id}
-            {...submission}
-            handlePay={(id) => handlePay(id)}
-          />
-        );
-      })}
-    </div>
+    <>
+      <h1 className="text-2xl font-bold mb-3">Unpaid submissions</h1>
+      <div className="inline-flex gap-4 z-0">
+        {submissions.map((submission) => {
+          return (
+            <SubmissionCard
+              key={submission.id}
+              {...submission}
+              handlePay={(id) => handlePay(id)}
+            />
+          );
+        })}
+      </div>
+      {/* <h1 className="text-2xl font-bold my-3">All submissions</h1> */}
+    </>
   );
 };
 
