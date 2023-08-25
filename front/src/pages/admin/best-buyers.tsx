@@ -101,6 +101,9 @@ const BestBuyers = () => {
 
       <PageTitle className="mt-5 text-lg">Results</PageTitle>
       {error && <p className="text-red-500">{error}</p>}
+      {response && response.results.length === 0 && (
+        <p className="text-red-500">No results</p>
+      )}
       {!error && response && response.results.length > 0 && (
         <div className="flex flex-col gap-5">
           <div className="inline-flex gap-4">

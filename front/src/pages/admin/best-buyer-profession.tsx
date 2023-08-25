@@ -10,7 +10,7 @@ type Response = {
 };
 
 export const getServerSideProps: GetServerSideProps<{
-  bestProfession: Response;
+  bestProfession: Response | undefined;
 }> = async (context) => {
   // get date 30 days ago
   const date = new Date();
@@ -90,11 +90,14 @@ const BestBuyerProfession = ({
 
       <div className="flex flex-col gap-2">
         <p className="text-lg">
-          Best profession: {response?.profession || bestProfession.profession}
+          Best profession:{" "}
+          {response?.profession || bestProfession?.profession || "N/A"}
         </p>
         <p className="mb-5">
           Earnings:{" "}
-          {response?.earnings?.toFixed(2) || bestProfession.earnings.toFixed(2)}
+          {response?.earnings?.toFixed(2) ||
+            bestProfession?.earnings?.toFixed(2) ||
+            "N/A "}
           €
         </p>
       </div>

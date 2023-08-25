@@ -46,10 +46,7 @@ router.get(
       });
 
       if (!submissions.length) {
-        return res.send({
-          profession: null,
-          earnings: null,
-        });
+        return res.status(404).json({ message: "No submissions found" });
       }
 
       // create a map of profession to total earnings
