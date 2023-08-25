@@ -28,7 +28,7 @@ export default function AgreementCard(agreement: Agreement) {
       </CardHeader>
       <Divider />
       <CardBody>
-        <p className="text-md font-semibold mt-2">Agreement terms</p>
+        <p className="text-md font-semibold mt-0">Agreement terms</p>
         <p>{agreement.terms}</p>
       </CardBody>
       <Divider />

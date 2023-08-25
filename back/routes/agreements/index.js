@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const Sequelize = require("sequelize");
-const { or, ne } = Sequelize.Op;
+const { or, ne, eq, in: inOp } = Sequelize.Op;
 const { Agreement } = require("@models/aggreement");
 const { verifyToken } = require("@middlewares/auth");
 
@@ -11,6 +11,19 @@ const { verifyToken } = require("@middlewares/auth");
 // GET /agreements - Return a list of agreements belonging to the user (buyer or supplier) where the agreements are not terminated.
 
 router.use(verifyToken);
+
+router.get("/all", async (req, res) => {
+  try {
+    const agreements = await Agreement.findAll({
+      where: {
+        [or]: [{ BuyerId: req.user.id }, { SupplierId: req.user.id }],
+      },
+    });
+    res.send(agreements);
+  } catch (error) {
+    res.status(500).send();
+  }
+});
 
 router.get("/", async (req, res) => {
   try {
