@@ -28,6 +28,7 @@ export default function Login() {
       password,
     });
     if (result?.ok) {
+      console.log('sigin ok', result)
       // redirect to callbackUrl if present or to the default page
       const callbackUrl = router.query.callbackUrl as string;
       router.replace(callbackUrl || "/");

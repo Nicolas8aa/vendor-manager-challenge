@@ -9,7 +9,7 @@ const fetcher = async (
   options: RequestInit,
   session: Session | null
 ) => {
-  return fetch(`http://localhost:3001${path}`, {
+  return fetch(`${process.env.BACKEND_URL}${path}`, {
     ...options,
     headers: {
       ...options?.headers,

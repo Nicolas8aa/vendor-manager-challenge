@@ -83,6 +83,8 @@ router.post("/login", async (req, res) => {
         message: "Invalid Password!",
       });
 
+    console.log('user is valid')
+
     res.send({
       id: user.id,
       firstName: user.firstName,
@@ -93,6 +95,8 @@ router.post("/login", async (req, res) => {
       admin: user.admin,
       accessToken: user.generateToken(),
     });
+
+
   } catch (error) {
     console.log(error);
     res.status(500).send();

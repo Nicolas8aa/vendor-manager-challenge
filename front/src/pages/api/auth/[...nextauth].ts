@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
          * credentials is defined in the config above.
          * We can expect it contains two properties: `email` and `password`
          */
-        const response = await fetch("http://localhost:3001/auth/login", {
+        const response = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -33,6 +33,7 @@ export const authOptions: NextAuthOptions = {
 
         if (response.ok) {
           const user = await response.json();
+          console.log(user)
           return user;
         } else {
           return null;
