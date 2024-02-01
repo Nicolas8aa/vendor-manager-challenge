@@ -1,5 +1,5 @@
 import React from "react";
-import { fetchClient, fetchServer } from "@/services/auth";
+import { fetchFromClient, fetchFromServer } from "@/services/auth";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { Agreement } from "./agreements";
 import SubmissionCard from "@/components/Card/Submission";
@@ -22,7 +22,7 @@ export interface Submission {
 export const getServerSideProps: GetServerSideProps<{
   submissions: Submission[];
 }> = async (context) => {
-  const res = await fetchServer("/submissions/unpaid", {}, context);
+  const res = await fetchFromServer("/submissions/unpaid", {}, context);
   const data = await res.json();
 
   return {
@@ -41,7 +41,7 @@ const Submissions = ({
     router.replace(router.asPath);
   };
   const handlePay = async (id: number) => {
-    const res = await fetchClient(`/submissions/${id}/pay`, {
+    const res = await fetchFromClient(`/submissions/${id}/pay`, {
       method: "POST",
     });
 

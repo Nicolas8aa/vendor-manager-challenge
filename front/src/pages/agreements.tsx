@@ -4,7 +4,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
 import React from "react";
 import { authOptions } from "./api/auth/[...nextauth]";
-import { fetchServer } from "@/services/auth";
+import { fetchFromServer } from "@/services/auth";
 import AgreementCard from "@/components/Card/Agreement";
 import { PageTitle } from "@/components/Text";
 
@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps<{
   agreements: Agreement[];
   allAgreements: Agreement[];
 }> = async (context) => {
-  const res = await fetchServer(
+  const res = await fetchFromServer(
     "/agreements",
     {
       method: "GET",
@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps<{
 
   const data = await res.json();
 
-  const allRes = await fetchServer("/agreements/all", {}, context);
+  const allRes = await fetchFromServer("/agreements/all", {}, context);
 
   const allData = await allRes.json();
 

@@ -65,7 +65,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <AppNavbar />
-      <main className="container mx-auto pt-8 min-h-screen">{children}</main>
+      <main className="max-w-5xl mx-auto pt-8 min-h-screen ">{children}</main>
     </>
   );
 };

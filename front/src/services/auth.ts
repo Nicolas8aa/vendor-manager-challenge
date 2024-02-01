@@ -9,7 +9,7 @@ const fetcher = async (
   options: RequestInit,
   session: Session | null
 ) => {
-  return fetch(`${process.env.BACKEND_URL}${path}`, {
+  return fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`, {
     ...options,
     headers: {
       ...options?.headers,
@@ -18,13 +18,13 @@ const fetcher = async (
   });
 };
 
-export const fetchClient = async (path: string, options: RequestInit) => {
+export const fetchFromClient = async (path: string, options: RequestInit) => {
   const session = await getSession();
 
   return fetcher(path, options, session);
 };
 
-export const fetchServer = async (
+export const fetchFromServer = async (
   path: string,
   options: RequestInit,
   context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>

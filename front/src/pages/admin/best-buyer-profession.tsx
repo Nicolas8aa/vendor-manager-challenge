@@ -1,6 +1,6 @@
 import DateRangePicker from "@/components/DateRangePicker";
 import { PageTitle } from "@/components/Text";
-import { fetchClient, fetchServer } from "@/services/auth";
+import { fetchFromClient, fetchFromServer } from "@/services/auth";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import React, { useState } from "react";
 
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<{
     end: new Date().toISOString(),
   });
 
-  const res = await fetchServer(
+  const res = await fetchFromServer(
     `/admin/best-buyer-profession?${query.toString()}`,
     {
       method: "GET",
@@ -52,7 +52,7 @@ const BestBuyerProfession = ({
       end: end.toISOString(),
     });
 
-    const res = await fetchClient(
+    const res = await fetchFromClient(
       `/admin/best-buyer-profession?${query.toString()}`,
       {
         method: "GET",

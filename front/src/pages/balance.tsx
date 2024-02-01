@@ -1,5 +1,5 @@
 import { Button, Input } from "@/components/Form";
-import { fetchClient, fetchServer } from "@/services/auth";
+import { fetchFromClient, fetchFromServer } from "@/services/auth";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -8,7 +8,7 @@ import React from "react";
 export const getServerSideProps: GetServerSideProps<{
   balance: number;
 }> = async (context) => {
-  const res = await fetchServer("/balances/balance", {}, context);
+  const res = await fetchFromServer("/balances/balance", {}, context);
 
   const data = await res.json();
 
@@ -25,7 +25,7 @@ const Balance = ({
   const { data: session } = useSession();
 
   const handleSubmit = async ({ amount }: { amount: number }) => {
-    const res = await fetchClient(`/balances/deposit/${session?.user.id}`, {
+    const res = await fetchFromClient(`/balances/deposit/${session?.user.id}`, {
       method: "POST",
       body: JSON.stringify({
         amount,
@@ -65,6 +65,7 @@ const Balance = ({
           label="Top up account"
           placeholder="100"
           className="my-4"
+          required
         />
         <Button>Deposit</Button>
       </form>
