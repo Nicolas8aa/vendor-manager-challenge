@@ -1,3 +1,3 @@
 module.exports = {
-  secret: "secret", // Should be an environment variable in production
+  secret: process.env.JWT_SECRET, // Should be an environment variable in production
 };
