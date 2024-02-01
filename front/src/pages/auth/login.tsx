@@ -4,10 +4,6 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { Button, Input } from "@/components/Form";
 import { Title } from "@/components/Text";
-import Link from "next/link";
-import { GetServerSidePropsContext } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]";
 
 export default function Login() {
   const router = useRouter();
@@ -22,13 +18,13 @@ export default function Login() {
     email: string;
     password: string;
   }) => {
+
     const result = await signIn("credentials", {
       redirect: false,
       email,
       password,
     });
     if (result?.ok) {
-      console.log('sigin ok', result)
       // redirect to callbackUrl if present or to the default page
       const callbackUrl = router.query.callbackUrl as string;
       router.replace(callbackUrl || "/");
